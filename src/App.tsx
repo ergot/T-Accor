@@ -17,6 +17,7 @@ const CardUser = ({ user, handleClick }) => {
 
 function App() {
   const [users, setUsers] = useState(null)
+  const [profilData, setProfilData] = useState(null)
 
   // Récupération des datas au montage
   useEffect(() => {
@@ -26,8 +27,9 @@ function App() {
   }, [])
 
   const handleClick = (id) => {
-    //setIdProfil(id);
-    console.log('click', id)
+    fetch(`${urlCrew}/${id}`)
+      .then((res) => res.json())
+      .then((result) => setProfilData(result))
   }
 
   const displayUsers = (users) => {
@@ -40,15 +42,30 @@ function App() {
     }
   }
 
+  const displayProfil = (profil) => {
+    if (profil === null) {
+      return <p>pas de detail</p>
+    } else {
+      const { name, agency, image } = profil
+      return (
+        <div>
+          <p>{name}</p>
+          <p>{agency}</p>
+          <img src={image} alt={name} style={{ width: '100%' }} />
+        </div>
+      )
+    }
+  }
+
   return (
-    <div>
+    <div style={{ display: 'flex', width: '100%' }}>
       <section>
         <h2>Liste de tripulants</h2>
         {displayUsers(users)}
       </section>
       <section>
         <h2>Details du membre</h2>
-        {/* {displayDetail()} */}
+        {displayProfil(profilData)}
       </section>
     </div>
   )

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import CssBaseline from '@mui/material/CssBaseline'
+
 import './App.css'
 
-const urlCrew = 'https://api.spacexdata.com/v4/crew'
+const urlCrew: string = 'https://api.spacexdata.com/v4/crew'
 
 const CardUser = ({ user, handleClick }) => {
   return (
@@ -19,7 +23,7 @@ function App() {
   const [users, setUsers] = useState(null)
   const [profilData, setProfilData] = useState(null)
 
-  // Récupération des datas au montage
+  // componentDidMount
   useEffect(() => {
     fetch(urlCrew)
       .then((res) => res.json())
@@ -58,16 +62,22 @@ function App() {
   }
 
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
-      <section>
-        <h2>Liste de tripulants</h2>
-        {displayUsers(users)}
-      </section>
-      <section>
-        <h2>Details du membre</h2>
-        {displayProfil(profilData)}
-      </section>
-    </div>
+    <Container maxWidth="md">
+      <CssBaseline />
+      <Box sx={{ textAlign: 'center' }}>
+        <h1>SpaceX Crew</h1>
+      </Box>
+      <div style={{ display: 'flex', width: '100%' }}>
+        <section>
+          <h2>Liste de tripulants</h2>
+          {displayUsers(users)}
+        </section>
+        <section>
+          <h2>Details du membre</h2>
+          {displayProfil(profilData)}
+        </section>
+      </div>
+    </Container>
   )
 }
 

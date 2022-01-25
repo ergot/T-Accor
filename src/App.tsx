@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
+import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
 
 import './App.css'
 
@@ -9,13 +11,13 @@ const urlCrew: string = 'https://api.spacexdata.com/v4/crew'
 
 const CardUser = ({ user, handleClick }) => {
   return (
-    <p
+    <Button
       onClick={() => {
         handleClick(user.id)
       }}
     >
       {user.name}
-    </p>
+    </Button>
   )
 }
 
@@ -65,18 +67,24 @@ function App() {
     <Container maxWidth="md">
       <CssBaseline />
       <Box sx={{ textAlign: 'center' }}>
-        <h1>SpaceX Crew</h1>
+        <Paper elevation={5}>
+          <h1>SpaceX Crew</h1>
+        </Paper>
       </Box>
-      <div style={{ display: 'flex', width: '100%' }}>
-        <section>
-          <h2>Liste de tripulants</h2>
-          {displayUsers(users)}
-        </section>
-        <section>
-          <h2>Details du membre</h2>
-          {displayProfil(profilData)}
-        </section>
-      </div>
+      <Box sx={{ textAlign: 'center' }}>
+        <Paper elevation={5}>
+          <div style={{ display: 'flex', width: '100%', height: '25em' }}>
+            <section style={{ width: '70%' }}>
+              <h2>Liste de tripulants</h2>
+              {displayUsers(users)}
+            </section>
+            <section style={{ width: '20%' }}>
+              <h2>Details</h2>
+              {displayProfil(profilData)}
+            </section>
+          </div>
+        </Paper>
+      </Box>
     </Container>
   )
 }
